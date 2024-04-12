@@ -1,0 +1,38 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Analytical Framework
+
+Our analysis seeks to provide a comprehensive examination of the performance of futures carry strategies across multiple dimensions:
+
+- Carry definition: classic and relative value carry
+- Different transforms on the raw carry signals
+- Simple cross-sectional and time series carry strategies
+- Sector and total portfolio level
+- Several layers of ensembles
+- Naive vs optimized portfolios
+- Impact of certain practical constraints
+
+<Callout>
+By exploring carry strategies from various angles, we aim to gain a robust understanding of their potential role in portfolio optimization.
+</Callout>
+
+It is useful to examine carry signals both in absolute terms and in relation to any long-term biases in the carry structure of a market ([Koijen et al. 2018](/references); [Baltas 2017](/references); [Baz et al. 2015](/references)). For example, some markets have a structural negative (gold) or positive (bonds) carry, but this does not lead to constant negative (positive) returns because investors demand (supply) the asset for other reasons.
+
+Carry relative value, therefore, is defined as the z-score of a market's carry over 1, 3, 5, 10 years and since-inception historical rolling windows. This approach normalizes the carry signal by its historical volatility:
+
+$\text{Carry Relative Value} = \frac{\text{Current Carry} - \text{Mean Historical Carry}}{\text{Standard Deviation of Historical Carry}}$
+
+where:
+- $\text{Current Carry}$ is the carry calculated for the current period,
+- $\text{Mean Historical Carry}$ is the average carry over a specified historical period,
+- $\text{Standard Deviation of Historical Carry}$ is the standard deviation of carry over the same historical period.
+
+In all instances, the z-score value for a market on each of the lookbacks are averaged to provide a final carry z-score signal for each day. 
+
+For both carry and carry z-score methods, we build carry strategies from the ground up, starting with sectors and then integrating the full target universe.
+
+We explore the use of raw carry and carry z-score as signals, along with a quasi-'binary' transform of each score as either 1 or -1 for markets with positive or negative values, respectively. We also employ a rescaled ranking transform, where assets with positive carry scores are assigned positive ranks ordinally on carry score, while those with negative scores receive negative ranks. These transforms are applied cross-sectionally each day across all markets in the target universe. For example, at the sector level the transforms are applied cross-sectionally to markets in each sector. At the full universe level they're applied across the full universe of markets.
+
+## Portfolio Construction
+
+The details of portfolio construction methodologies, including naive and optimized approaches, will be covered in the [Portfolio Construction](/experimental-design/analytical-framework/portfolio-construction) subsection.

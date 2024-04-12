@@ -1,0 +1,44 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Carry in Financial Markets
+
+Carry is a feature of all major asset classes. Let's dive into how carry manifests in different markets:
+
+## Equities
+
+In equities, an investor can expect to earn a **dividend** even when price remains unchanged. The cost of holding equity is the **return on cash**, which can be viewed as either the cost of financing the position or the minimum opportunity cost of holding the position ([Asness, Moskowitz, and Pedersen 2013](/references); [Frazzini and Pedersen 2014](/references)).
+
+<Callout>
+For example, if the expected 1-year dividend yield on the S&P 500 is 1.5% and the 1-year U.S. Treasury rate is 4.75%, U.S. equities have a negative expected carry of -3.25% (1.5% - 4.75%).
+</Callout>
+
+## Bonds
+
+Bonds generate a **coupon**, but they also benefit from potential **roll yield** as the bond matures over time. Again, the cost is the return of cash.
+
+## Currencies
+
+Currency carry is a bit more complex. If a U.S. investor sells U.S. Dollars to buy British Pounds and the exchange rate remains unchanged, they can expect to earn a return equal to the **yield of short-term U.K. Gilts minus the yield of short-term U.S. Treasury Bills**. This difference is sometimes called "forward points."
+
+## Commodities
+
+Commodities have additional complexities due to their physical nature and use in industrial production. The expected benefits of holding commodities are labeled under the umbrella term **"convenience yield,"** which captures effects such as:
+
+- The ability to profit from temporary shortages
+- The ability to keep a production process running
+
+The costs of holding physical commodities include:
+
+- The cost of financing their purchase
+- The costs associated with transportation, storage, and insurance
+
+Here's a summary table of carry components by asset class:
+
+| Asset Class | Benefit of Holding      | Cost of Holding                                         |
+|-------------|-------------------------|----------------------------------------------------------|
+| Equities    | Dividend Yield          | Financing Rate                                          | 
+| Bonds       | Yield Plus Roll Down    | Financing Rate                                          |
+| Commodities | Convenience Yield       | Financing Rate, Storage, Transportation, Insurance      |
+| Currencies  | Foreign Short Rate      | Local Short Rate                                        |
+
+As we can see, carry takes on different forms across markets, but the core concept remains the same: it represents the expected return assuming no change in price. Understanding these nuances is crucial for [measuring carry in practice](/what-is-carry/measuring-carry-in-practice) and [constructing effective carry strategies](/what-is-carry/constructing-carry-strategies).

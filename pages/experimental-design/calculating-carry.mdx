@@ -1,0 +1,39 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Calculating Carry
+
+To compute carry for markets across different sectors, we employ methods tailored to the unique characteristics and available information in each asset class. This allows us to capture the nuances of carry in a manner that is both efficient and representative of the underlying economic drivers.
+
+<Steps>
+
+### Bonds
+
+For government bonds, we first convert the annual yields of benchmark cash bonds into prices using the following formula:
+
+$\text{prices} = \frac{1}{(1 + \frac{\text{yield}}{\text{expiry}})^{\text{expiry}}}$
+
+This is done for maturities of 1Y, 2Y, 3Y, 5Y, 7Y, 10Y, 20Y, and 30Y. Carry is then determined as the average of the pairwise differences in the implied prices (adjusted for time to expiry) of the bonds for all combinations of pairs. We assume that all government bonds for the same country share the same carry value.
+
+### Currencies
+
+In the currency markets, we derive carry from the spot and forward term structure prices. Carry is calculated as the average of the pairwise differences in the forward prices (adjusted for time to expiry) observed over spot, 1M, 3M, and 6M terms.
+
+### Equities and Commodities
+
+For equity indices and all other commodity markets, we calculate carry by taking the average of all the pairwise settlement prices over the first 12 months of the term structure, excluding deferred contracts that fall below a certain liquidity threshold. This approach captures the average expected cost or benefit of holding a commodity or equity over the near term.
+
+</Steps>
+
+The general formula for computing carry between two prices, $p_{t_m}$ and $p_{t_n}$, with time to expiration $t_m$ and $t_n$, respectively, is:
+
+$\text{carry}_{t_m, t_n} = \frac{\ln{ (p_{t_m} / p_{t_n}}) }{t_n - t_m}$
+
+The pairwise average carry is then given as:
+
+$\text{carry} = \frac{2}{N(N-1)} \sum_{i=1}^N\sum_{j>i} \text{carry}_{t_i, t_j}$
+
+<Callout>
+While it is possible to rely solely on futures markets to estimate carry, directly computing carry from cash markets often provides more granular information and pricing efficiency, especially for markets with sparse deferred contracts (like currencies) or more efficient cash pricing (like bonds).
+</Callout>
+
+By employing these sector-specific methods, we can effectively capture the manifestation of carry across diverse markets, laying the foundation for the [construction of robust carry strategies](/what-is-carry/constructing-carry-strategies) and [in-depth performance analysis](/performance-analysis).

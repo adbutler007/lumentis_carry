@@ -1,0 +1,49 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Measuring Carry in Practice
+
+Estimating carry in a bottom-up fashion is no small task. In equities, for example, we need to develop dividend estimates for thousands of companies around the world. For commodities, we would need to establish models of storage, transportation, and insurance costs for dozens of unique markets.
+
+Instead of diving deep into complex calculations for each asset, we can look to futures markets for insights. Futures contracts are agreements to buy or sell an asset at a future date for a set price. These contracts inherently factor in the costs and benefits of owning the asset.
+
+Here's a straightforward example using the S&P 500:
+
+<Steps>
+
+### Step 1: Set up the scenario
+
+Imagine you want to put on a three-month trade in the S&P 500, which we will assume is trading at $5000. Instead of using your own money to buy, however, you decide to borrow the required capital.
+
+### Step 2: Understand the cash flows
+
+Over the next three months:
+- You earn any dividends paid from the underlying stocks. 
+- At the end of three months, you sell the shares for some amount of money ($F$), and pay back the $5000 plus some interest.
+
+### Step 3: Calculate the profit/loss
+
+Your profit or loss is calculated as:
+
+$F + \text{Dividends} - 5000 \times (1 + \text{Interest Rate})$
+
+</Steps>
+
+In an efficient market, a contract that allows you to lock in the price at which you will sell the S&P 500 for in the future ($F$) should be priced such that you have the expectation of making neither a profit nor a loss.
+
+If we simplify this further, we can say:
+
+$\frac{F}{5000} - 1 = \text{Interest Rate} - \text{Dividend Yield}$
+
+This equation shows us the concept of equity carry in simpler terms. You would expect to pay more for the S&P 500 in the future if the cost to borrow money to buy the S&P 500 exceeds the expected dividend payout. This is because holding onto the future contract and cash would earn you more than owning the S&P 500 and its dividends directly.
+
+<Callout type="info">
+As the future contract gets closer to its end date, its price will move to match the S&P 500's current price. If you bought the future at a higher price than the S&P 500's price today, you'd expect the future's price to drop as it nears its expiration. This drop should equal the difference between your borrowing costs and the dividends you expected to earn.
+</Callout>
+
+In simpler terms, using futures to estimate carry helps investors understand the potential costs and benefits of holding an asset without getting lost in the weeds of complex calculations for each individual asset. 
+
+The same exercise can be carried out for [bonds](/what-is-carry#carry-in-financial-markets), [currencies](/what-is-carry#carry-in-financial-markets), and [commodities](/what-is-carry#carry-in-financial-markets) with a similar result.
+
+Fortunately, rather than having to guess at $F$, it is provided to us by futures markets. Simply comparing the futures price to the current spot price, or the prices of futures contracts that expire in the distant future to those which expire in the near term, allows us to efficiently capture the concept of carry across assets [(Koijen et al. 2018)](/references#ref-koijen2018carry) [(Baltas 2017)](/references#ref-baltas2017optimising).
+
+While we can in theory look to futures markets exclusively to provide information about carry, it is often more effective to compute carry directly from cash markets. This is especially true for markets where deferred futures contracts are not regularly traded (like in currencies), or where the cash market provides more granular information and is more efficient from a pricing perspective (like in bonds). We explore the nuances of computing carry for markets in different sectors in [Calculating Carry](/experimental-design/calculating-carry).

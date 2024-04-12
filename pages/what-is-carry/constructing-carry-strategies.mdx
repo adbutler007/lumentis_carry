@@ -1,0 +1,31 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Constructing Carry Strategies
+
+There are three primary ways in which carry signals can be transformed into carry strategies:
+
+<Steps>
+
+### Calendar spreads
+
+If deferred contracts are trading at a higher (lower) price than near-term contracts, sell (buy) the back-month against the front month. This approach isolates expected supply/demand dynamics in a given market at different points in the future <a href="#references">[1]</a> <a href="#references">[2]</a>.
+
+### Cross-sectional carry
+
+Futures markets with carry higher than the sector average will be held long against a similarly sized basket of assets with below-average carry. Through its long/short construction, this approach aims to neutralize directional market sector exposure and profit from the carry-driven, relative movement across markets in each sector <a href="#references">[3]</a> <a href="#references">[4]</a>.
+
+<Callout type="warning">
+Importantly, in this approach markets with positive (negative) expected carry may be held short (long), if the expected carry is below the average carry expected across other markets in the same sector. Indeed, there may be periods where all of the assets in a sector have positive expected carry, but half of them are held short.
+</Callout>
+
+### Time-series carry
+
+Futures markets with positive expected carry are held long and those with negative expected carry are held short. As a result, the portfolio will maintain long and short sector biases commensurate with the proportion of markets in each sector with positive or negative carry <a href="#references">[5]</a> <a href="#references">[4]</a>. This approach has parallels to tactical allocation strategies that combine momentum and term structure signals in commodity futures <a href="#references">[6]</a>. 
+
+<Callout type="info">
+For some sectors, like government bonds where the yield curve has historically implied positive carry, this may result in a slightly larger average correlation to respective betas. Indeed, as discussed in [Performance Analysis](/performance-analysis), time-series carry strategies have exhibited a slightly larger average beta to government bonds. We also investigate ways to ameliorate this exposure at the portfolio level, and discuss tradeoffs in a portfolio context.
+</Callout>
+
+</Steps>
+
+Regardless of approach, there is no way to profit from carry without taking some price risk. As the last section suggests, an investor who tries to go long futures with high carry and hedge by shorting spot will find themselves with no profit after all costs are considered.

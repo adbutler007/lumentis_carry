@@ -1,0 +1,43 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Sector Carry Strategies
+
+We start with an examination of how carry strategies have historically played out within each sector in <a href="#fig:xs_sector_table">Figure 2</a> and <a href="#fig:ts_sector_table">Figure 3</a>. Sectors are divided into currencies, energy commodities, metals, global government bonds, and equity indices. Market signal transforms are within each sector, and each market is weighted in proportion to the inverse of its volatility. Portfolio weights are then scaled at the sector portfolio level to target 10 percent annualized standard deviation by taking current smoothed weights and a long-term covariance estimate.
+
+<figure id="fig:xs_sector_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_sector_carry_xs.jpg" alt="Performance by sector for Cross-Sectional Carry and Carry Z-Score strategies. Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information." />
+<figcaption>Figure 2: Performance by sector for Cross-Sectional Carry and Carry Z-Score strategies.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:ts_sector_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_sector_carry_ts.jpg" alt="Performance by sector for Time-Series Carry and Carry Z-Score strategies. Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information." />
+<figcaption>Figure 3: Performance by sector for Time-Series Carry and Carry Z-Score strategies.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+It's clear that carry strategies have historically produced better performance across most sectors when sector exposures are allowed to rise and fall in proportion to the carry of the markets within the sector. 
+
+<Callout>
+Perhaps surprisingly, time-series carry strategies are not consistently or materially more correlated on average to their respective sectors than cross-sectional strategies.
+</Callout>
+
+Bonds represent a notable exception, where the time-series bond sector carry strategy has an average correlation of 0.64 to 10-year U.S. Treasury futures. This validates the intuition that the term structure of government bonds was mostly positive over our simulation horizon. We examine ways to neutralize bond exposure in later sections.
+
+We next form portfolios by aggregating all sectors into a single portfolio, conditioned on type of carry signal and transform. Each sector strategy receives equal risk weighting in the portfolios. An interesting observation from <a href="#fig:ensemble_sector_table">Figure 4</a> is that when aggregated, carry z-score strategies produced consistent stronger performance than regular carry strategies. In general, this suggests many markets exhibit consistent bias in carry over time, and it is more effective to condition positioning on carry relative to this bias than on raw carry alone.
+
+In addition, while the average Sharpe across all cross-sectional and time-series strategies is 0.64, the Sharpe of the ensemble of all strategies is .84, suggesting attractive diversificiation from different formation methods and transforms. None of the strategies exhibit material average correlation to equities, but some time-series strategies have been mildly correlated to bonds for reasons discussed above.
+
+<figure id="fig:ensemble_sector_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_sector_ensemble_meta.jpg" alt="Performance of Cross-Sectional (XS) and Time-Series (TS) Equal Sector Weighted Carry and Carry z-score Strategies by Signal and Transform. Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information." />
+<figcaption>Figure 4: Performance of Cross-Sectional (XS) and Time-Series (TS) Equal Sector Weighted Carry and Carry z-score Strategies by Signal and Transform.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:ensemble_sector_plot">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/sector_ensemble_meta.png" alt="Cumulative Excess Returns of Cross-Sectional (XS) and Time-Series (TS) Equal Sector Weighted Carry and Carry Z-Score Strategies by Signal and Transform. Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information." />
+<figcaption>Figure 5: Cumulative Excess Returns of Cross-Sectional (XS) and Time-Series (TS) Equal Sector Weighted Carry and Carry Z-Score Strategies by Signal and Transform.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<a href="#fig:ensemble_sector_plot">Figure 5</a> reveals further context on how cross-sectional strategies have fared relative to time-series strategies over time. While time-series carry strategies show a relatively consistent character over time, cross-sectional version performance peters out after 2012. Given that cross-sectional carry attempts to remove all directional risk and produce what some might characterize as "pure alpha" without time-varying beta, one might induce that the market effectively arbitraged this market-risk-free anomaly. Since 2012, investors have only been rewarded to taking on time-varying beta risk in carry strategies, at least when constructed with equal sector weighting.

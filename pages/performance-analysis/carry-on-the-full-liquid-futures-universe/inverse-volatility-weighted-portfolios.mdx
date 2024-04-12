@@ -1,0 +1,43 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Inverse Volatility Weighted Portfolios
+
+Recall that to form inverse volatility weighted portfolios, at each day we divide the carry signal (raw or transformed) for each market, by the market's current estimated volatility. This ensures each market's weight is proportional to both the strength (and direction) of its carry signal and inversely proportional to its volatility. Markets with larger signals and lower estimated volatilty will earn a larger absolute weighting in the portfolio than markets with smaller signals and higher volatility. We then scale these weights so that the overall portfolio has an expected volatility of 10 percent annualized conditioned on long-term covariance estimates.
+
+The formula for inverse volatility weighting is:
+
+$\mathbf{w}_{\text{Inverse Volatility,mkt}} = \frac{\text{Signal}_{\text{mkt}}}{\text{Estimated Current Volatility}_{\text{mkt}}}$
+
+<Callout>
+  Inverse volatility weighting is a simple and intuitive approach to portfolio construction that assigns weights based on the strength of the signal and the historical volatility of each market, without accounting for correlations between markets.
+</Callout>
+
+<figure id="fig:ivol_strat_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_inv_vol_strat.jpg" alt="Performance of Time-Series (TS) Inverse Volatility Weighted Carry and Carry Z-Score Strategies by Signal and Transform." />
+<figcaption><a href="#fig:ivol_strat_table">Figure 6</a>: Performance of Time-Series (TS) Inverse Volatility Weighted Carry and Carry Z-Score Strategies by Signal and Transform.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:ivol_strat_plot">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/inv_vol_strat.png" alt="Cumulative Excess Returns of Time-Series (TS) Inverse Volatility Weighted Carry and Carry Z-Score Strategies by Signal and Transform." />
+<figcaption><a href="#fig:ivol_strat_plot">Figure 7</a>: Cumulative Excess Returns of Time-Series (TS) Inverse Volatility Weighted Carry and Carry Z-Score Strategies by Signal and Transform.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+Evaluating <a href="#fig:ivol_strat_table">Figure 6</a> and <a href="#fig:ivol_strat_plot">Figure 7</a> we note that, in contrast with [sector-weighted versions](/performance-analysis/sector-carry-strategies), raw carry strategies fare a little better than carry z-score versions. This is mostly due to performance in the recent period, as they were qualitatively indistinguishable through approximately 2016. Still, even in recent years we can not reject the view that the observed performance differential is an artifact of statistical noise. Indeed, we may check back in 5 years to see quite a different rank ordering than we note in our snapshot at the end of 2023. 
+
+<figure id="fig:ivol_ensemble_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_inv_vol_ensemble.jpg" alt="Performance of Time-Series (TS) Inverse Volatility Weighted Ensemble Carry Strategies." />
+<figcaption><a href="#fig:ivol_ensemble_table">Figure 8</a>: Performance of Time-Series (TS) Inverse Volatility Weighted Ensemble Carry Strategies.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:ivol_ensemble_plot">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/inv_vol_ensemble.png" alt="Cumulative Excess Returns of Time-Series (TS) Inverse Volatility Weighted Ensemble Carry Strategies." />
+<figcaption><a href="#fig:ivol_ensemble_plot">Figure 9</a>: Cumulative Excess Returns of Time-Series (TS) Inverse Volatility Weighted Ensemble Carry Strategies.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+Intuitively, when we aggregate weights across all transforms, and again across all transforms and signal types, it's clear the raw carry strategies have slightly dominated carry z-score strategies in the last few years. Per <a href="#fig:ivol_ensemble_table">Figure 8</a> and <a href="#fig:ivol_ensemble_plot">Figure 9</a>, due to relatively low correlations between the carry and carry z-score inverse volatility ensemble strategies, the combination exhibits better performance than either. Indeed, the IV ensemble of all Inverse Volatility weighted strategies sports a gross Sharpe ratio of 0.98 with a 25 percent maximum drawdown at a 10 percent annualized target volatility.
+
+Generally, portfolios that enable all markets to directly compete based on their carry and volatility metrics outperform those constructed from [sector-specific strategies](/performance-analysis/sector-carry-strategies), where markets only vie for allocations within their respective sectors. This makes sense: while markets might earn a high score relative to other members of its sector, if the carry score of the sector is weak, the markets in the sector should earn lower weight in the portfolio.

@@ -1,0 +1,30 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Data
+
+Futures price data across currencies, energies, metals, bonds, and equity indices was obtained for the period December 31, 1989 through December 31, 2023. Given the practitioner focus of this paper, we narrowed our focus to only those futures contracts with the potential to scale to levels required by large institutions. We included the following list of highly liquid futures markets in our analysis:
+
+**Currencies:** Australian Dollar (AD), Canadian Dollar (CD), British Pound (BP), Euro (EC), Japanese Yen (JY)
+
+**Energies:** Crude Oil (CL), Brent Crude Oil (CO), Heating Oil (HO), Natural Gas (NG), Gasoil (QS), RBOB Gasoline (XB)
+
+**Metals:** Gold (GC), Silver (SI), Copper (HG)
+
+**Bonds:** 10-Year Treasury Note (TY), U.K. Gilt (G), German Bund (RX)
+
+**Equities:** E-Mini S&amp;P 500 (ES), E-Mini Nasdaq 100 (NQ), Nikkei 225 (NX), S&amp;P/TSX 60 (PT), German DAX (GX), Euro Stoxx 50 (VG), FTSE 100 (Z)
+
+Futures contracts were rolled on a fixed trade date each month reflecting the historical average date of transfer of both volume and open interest to the next contract in each market. Continuous futures price series were constructed by splicing together the individual contract series, with returns calculated as the percentage change in daily closing prices.
+
+<Callout>
+For all simulations, markets are added when there is sufficient data post-inception to calculate the relevant carry signal. The vast majority of markets in our liquid universe had started trading by January 1st, 1990 but a few markets were launched in the mid-1990s.
+</Callout>
+
+The inception dates for each market are illustrated in [Figure 1](/experimental-design/data#fig:markets_inception). Note that markets that start trading prior to January 1st, 1990 are truncated at this date for the purpose of our analysis.
+
+<figure id="fig:markets_inception">
+  <img src="https://investresolve.com/wp-content/uploads/carry/images/markets_inception.png" alt="Inception Dates for Markets in our Experimental Universe" />
+  <figcaption>Figure 1: Inception Dates for Markets in our Experimental Universe</figcaption>
+</figure>
+
+By focusing on this universe of highly liquid futures contracts, we ensure that our analysis is relevant and actionable for institutional investors managing large portfolios. In the next section, [Calculating Carry](/experimental-design/calculating-carry), we dive into the specific methods used to estimate carry across the different sectors represented in our dataset.

@@ -1,0 +1,45 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Gross Versus Net Returns
+
+So far we've discussed performance gross of expected trading costs so as not to confound the many take-aways from examining the various dimensions of carry across signal types, transforms, sectors, and optimization methods. Of course ultimately the value of Carry strategies is a function of economic returns, net of costs. 
+
+In this section we compare gross returns to production-ready ensemble strategies to returns after subtracting estimated trade slippage and commissions. Importantly, trade-netting plays a material role in minimizing trading slippage. By offsetting buy and sell orders for the same assets across various carry strategies, we can significantly reduce transaction costs and market impact. This efficiency not only lowers operational overhead but also enhances portfolio performance by minimizing unnecessary trades.
+
+Recall also that for all strategies we smooth portfolio weights using a 5-day moving average, which also reduces unnecessary noise trading.
+
+<Callout>
+Trade-netting and weight-smoothing are two key techniques used to reduce transaction costs and enhance the economic value of carry strategies.
+</Callout>
+
+Per [Figure 18](#fig-gross-net-table) and [Figure 19](#fig-gross-net-plot), after trade-netting and smoothing, and given our highly liquid investment universe estimated trade frictions reduce returns by about 1 percent per year, which works out to approximately 10 basis points in annualized Sharpe ratio. 
+
+<figure>
+  <img id="fig-gross-net-table" src="https://investresolve.com/wp-content/uploads/carry/images/perf_gross_net_all.jpg" alt="Performance of Time-Series (TS) Carry Strategies: Gross vs Net." />
+  <figcaption>Figure 18: Performance of Time-Series (TS) Carry Strategies: Gross vs Net.<br />
+<em>Data from CSI Data. Authors' calculations. GROSS performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. NET performance is HYPOTHETICAL and NET of estimated trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure>
+  <img id="fig-gross-net-plot" src="https://investresolve.com/wp-content/uploads/carry/images/gross_net_all.png" alt="Cumulative Excess Returns of Time-Series (TS) Carry Strategies: Gross vs Net." />
+  <figcaption>Figure 19: Cumulative Excess Returns of Time-Series (TS) Carry Strategies: Gross vs Net.<br />
+<em>Data from CSI Data. Authors' calculations. GROSS performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. NET performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit NET of estimated trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+For the balance of this paper we'll refer to the Meta Ensemble Treasury Equity Neutral Carry Strategy as simply the Carry Strategy.
+
+<Steps>
+
+### In Summary
+- Trade netting offsets buy and sell orders, reducing transaction costs
+- Weight smoothing using a 5-day moving average reduces noise trading 
+- For the highly liquid futures universe studied, these techniques reduce returns by ~1% per year
+- This equates to about a 0.10 reduction in Sharpe ratio
+- Net returns are still compelling, with Sharpe ratios over 1.0
+
+### Implications
+- Carefully managing trade execution is critical for maximizing the economic value of carry strategies
+- The liquid global futures markets provide a scalable universe for efficiently harvesting carry
+- Realistic assumptions about transaction costs should always be incorporated when backtesting strategies
+
+</Steps>

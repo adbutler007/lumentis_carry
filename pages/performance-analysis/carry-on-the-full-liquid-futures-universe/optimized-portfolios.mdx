@@ -1,0 +1,64 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Optimized Portfolios
+
+Let's pause quickly to examine the assumptions that are implied by inverse volatility weighted portfolios. Since weights are exclusively a function of a market's carry signal and volatility, there is no accounting for correlations. Thus, if there are more equities than energies in the portfolio then all things equal the portfolio will be overweight equities. In fact, inverse volatility weighted portfolios are only optimal if there is no useful information in correlations between the markets. This condition is met if correlations are effectively random from day to day, or if all markets always have the same pairwise correlations. Since neither of these conditions typically hold, we would expect portfolios that account for correlations - (thoughtfully) optimized portfolios - to outperform inverse volatility portfolios.
+
+We simulated portfolios formed by passing each market's signal along with an up-to-date estimated covariance matrix into a mean-variance optimizer. As noted [above](/experimental-design/analytical-framework), to mediate known challenges with optimization, we stabilized the covariance matrix using standard methods. 
+
+For further intuition into this solution, consider that an unconstrained mean-variance optimizer effectively takes the following steps:
+
+<Steps>
+### Step 1
+
+The covariance matrix is used to change the basis of the problem from asset space into independent "eigenportfolio" space, where each eigenportfolio can be interpreted as a portfolio of assets that represents a statistically independent risk factor.
+
+For example, one eigenportfolio may capture equity beta while another eigenportfolio may capture the return spread between energies and metals.
+
+### Step 2 
+
+Each eigenportfolio is then scaled to the same volatility level and held in proportion to its volatility-scaled carry.
+</Steps>
+
+In doing so, the process effectively applies time-series carry to the independent risk factors, recognizing that many of those risk factors will capture pertinent cross-sectional information!
+
+Inverse volatility weighting, then, simply collapses this solution to assume that each market represents an independent risk factor and that cross-sectional effects can be ignored.  
+
+<figure id="fig:optim_strat_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_optim_strat.jpg" alt="Performance of Time-Series (TS) Optimized Carry and Carry Z-Score Strategies by Signal and Transform." />
+<figcaption><a href="#fig:optim_strat_table">Figure 10</a>: Performance of Time-Series (TS) Optimized Carry and Carry Z-Score Strategies by Signal and Transform.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:optim_strat_plot">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/optim_strat.png" alt="Cumulative Excess Returns of Time-Series (TS) Optimized Carry and Carry Z-Score Strategies by Signal and Transform." />
+<figcaption><a href="#fig:optim_strat_plot">Figure 11</a>: Cumulative Excess Returns of Time-Series (TS) Optimized Carry and Carry Z-Score Strategies by Signal and Transform.<br />
+<em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+As expected, optimized strategies in general compare favourably to [inverse volatility weighted strategies](/performance-analysis/carry-on-the-full-liquid-futures-universe/inverse-volatility-weighted-portfolios), but the differences are fairly moderate. Scrutinizing [Figure 10](#fig:optim_strat_table) and [Figure 11](#fig:optim_strat_plot) there's no clear benefit to either raw carry or carry z-score methods. Regular carry z-score was a notable exception, with an unfortunate stretch of weakness over the 2006 - 2012 period. We leave it to the reader to speculate about the source of this underperformance. Still, over the long-term the strategies are mostly statistically indistinguishable, with all methods showing promise.
+
+<figure id="fig:optim_ensemble_table">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/perf_optim_ensemble.jpg" alt="Performance of Time-Series (TS) Optimized Ensemble Carry Strategies." />
+<figcaption>Figure 12: Performance of Time-Series (TS) Optimized Ensemble Carry Strategies.</figcaption>
+</figure>
+
+<figure id="fig:optim_ensemble_plot">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/optim_ensemble.png" alt="Cumulative Excess Returns of Time-Series (TS) Optimized Ensemble Carry Strategies." />
+<figcaption>Figure 13: Cumulative Excess Returns of Time-Series (TS) Optimized Ensemble Carry Strategies.</figcaption>
+</figure>
+
+When we combine weights across all inverse volatility and optimized strategies, and again across all transforms and signal types in [Figure 12](#fig:optim_ensemble_table) and [Figure 13](#fig:optim_ensemble_plot), the complementarity of the methods shines through. While the average of the Sharpe ratios of the carry ensemble and the carry z-score ensemble are .91 and .88 respectively, the Sharpe of the meta-ensemble of all sub-strategies is 1.08. Adding to the strong performance, the strategies all show effectively zero correlation to equities and very low correlation to bonds.
+
+<Callout type="info">
+  While average correlations to stocks and bonds are low, a more nuanced picture emerges from an analysis of rolling correlations over time.
+</Callout>
+
+<figure id="fig:optim_rolling_cor_plot">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/rolling_correlations_unconstrained.png" alt="Rolling Pearson Correlations: Time-Series (TS) Optimized Ensemble Carry Strategies vs S&amp;P 500 and U.S. 10-Year Treasury Futures." />
+<figcaption>Figure 14: Rolling Pearson Correlations: Time-Series (TS) Optimized Ensemble Carry Strategies vs S&amp;P 500 and U.S. 10-Year Treasury Futures.</figcaption>
+</figure>
+
+[Figure 14](#fig:optim_rolling_cor_plot) demonstrates that the strategy spends multi-year periods of time being long equity and Treasury beta (i.e. with positive correlations to stocks and bonds), followed by long periods being short. In other words, it seems to align with long-term regimes. While some investors may be agnostic about this character when holding the strategy in isolation, others may prefer a more neutral disposition to stocks and bonds for diversification purposes. 
+
+We explore ways to [neutralize bond exposure](/performance-analysis/carry-on-the-full-liquid-futures-universe/constrained-portfolios) in the next section, and discuss tradeoffs in a portfolio context.

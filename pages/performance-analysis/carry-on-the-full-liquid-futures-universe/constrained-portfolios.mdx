@@ -1,0 +1,56 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Constrained Portfolios
+
+While average correlations to stocks and bonds are low, a more nuanced picture emerges from an analysis of rolling correlations over time. <a href="#fig:optim_rolling_cor_plot">Figure 14</a> demonstrates that the strategy spends multi-year periods of time being long equity and Treasury beta (i.e. with positive correlations to stocks and bonds), followed by long periods being short. In other words, it seems to align with long-term regimes. While some investors may be agnostic about this character when holding the strategy in isolation, others may prefer a more neutral disposition to stocks and bonds for diversification purposes.
+
+<figure id="fig:optim_rolling_cor_plot">
+  <img src="https://investresolve.com/wp-content/uploads/carry/images/rolling_correlations_unconstrained.png" alt="Rolling Pearson Correlations: Time-Series (TS) Optimized Ensemble Carry Strategies vs S&amp;P 500 and U.S. 10-Year Treasury Futures." />
+  <figcaption>Figure 14: Rolling Pearson Correlations: Time-Series (TS) Optimized Ensemble Carry Strategies vs S&amp;P 500 and U.S. 10-Year Treasury Futures.<br />
+  <em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+Given a common preference for diversifiers to act as diversifiers to common betas most of the time, we explored ways to structurally neutralize expected exposure to stocks and bonds at portfolio formation. A straightforward but sub-optimal approach would be to explicitly trade equity markets and bond markets cross-sectionally in portfolios. As discussed [above](/performance-analysis/carry-on-the-full-liquid-futures-universe#constructing-carry-strategies), this often leads to situations where markets with strong positive carry are held short. 
+
+Instead, we can lean on correlation relationships between all the assets in the portfolio to form portfolios that simultaneously seek to maximize total carry at minimal risk, while constraining aggregate expected portfolio beta to equities and Treasuries to zero. Importantly, market betas are updated daily to represent current market relationships using a rolling window of 252 trading days.
+
+The optimization problem can be formulated as follows:
+
+$$
+\begin{split}
+\text{minimize}_{\mathbf{w}} \quad & \mathbf{w}^T \Sigma \mathbf{w}\\
+\text{subject to:} \quad & \mathbf{w}^T \mathbf{\mu} = 1 \\  
+                  \quad & \mathbf{w}^T \mathbf{\beta}_{\text{S\&P 500}} = 0 \\
+                  \quad & \mathbf{w}^T \mathbf{\beta}_{\text{10Y Treasury}} = 0.
+\end{split}
+$$
+
+Where $\mathbf{\beta}_{\text{S\&P 500}}$ and $\mathbf{\beta}_{\text{10Y Treasury}}$ are vectors of portfolio betas to the S&P 500 futures and 10-year Treasury futures, respectively. The constraint set therefore constrains the portfolio to be neutral to these benchmarks. The portfolio is otherwise unconstrained.
+
+We neutralize both inverse volatility weighted and mean-variance optimal portfolios. To neutralize inverse volatility weighted portfolios, we employed mean-variance optimization with beta constraints as above, but set off-diagonal covariances to zero. 
+
+<Callout>
+Note that we need a year (252 trading days) to calculate market betas, so simulations of beta neutralized portfolios start in January 1991 rather than March 1990, which is why the long-term performance numbers in <a href="#fig:optim_neutral_table">Figure 15</a> below do not match those in the [table above](#optimized-portfolios).
+</Callout>
+
+<figure id="fig:optim_neutral_table">
+  <img src="https://investresolve.com/wp-content/uploads/carry/images/perf_meta_optim_sector_constrained.jpg" alt="Performance of Time-Series (TS) Optimized Ensemble Carry Strategies." />
+  <figcaption>Figure 15: Performance of Time-Series (TS) Optimized Ensemble Carry Strategies.<br />
+  <em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:optim_neutral_plot">
+  <img src="https://investresolve.com/wp-content/uploads/carry/images/optim_ensemble.png" alt="Cumulative Excess Returns of Time-Series (TS) Optimized Ensemble Carry Strategies." />
+  <figcaption>Figure 16: Cumulative Excess Returns of Time-Series (TS) Optimized Ensemble Carry Strategies.<br />
+  <em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and assumes $100 invested with reinvestment of profit GROSS of trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+By taking advantage of correlation relationships between markets, the performance of equity and Treasury-neutral portfolios rival the performance of unconstrained strategies. This is quite an attractive feature, as the beta-neutralized strategy delivers on our objective of substantially reducing periods of sustained exposure to the target markets. 
+
+Note that the rolling correlations between the sector constrained strategy returns and core markets in <a href="#fig:optim_rolling_cor_unconstrained_plot">Figure 17</a> have much smaller peaks and troughs to target betas, and revert toward our target of zero much more quickly. In fact, the correlations we see mostly represent basis risk of holding equity and bond markets with imperfect correlation to S&P 500 and 10-year Treasuries, which is unavoidable.
+
+<figure id="fig:optim_rolling_cor_unconstrained_plot">
+  <img src="https://investresolve.com/wp-content/uploads/carry/images/rolling_correlations_constrained.png" alt="Rolling Pearson Correlations: Time-Series (TS) Equity and Treasury Neutral Carry Strategies vs S&amp;P 500 and U.S. 10-Year Treasury Futures." />
+  <figcaption>Figure 17: Rolling Pearson Correlations: Time-Series (TS) Equity and Treasury Neutral Carry Strategies vs S&amp;P 500 and U.S. 10-Year Treasury Futures.<br />
+  <em>Data from CSI Data. Authors' calculations. Performance is HYPOTHETICAL and GROSS of all trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>

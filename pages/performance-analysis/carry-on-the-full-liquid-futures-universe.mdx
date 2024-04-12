@@ -1,0 +1,54 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Carry on the Full Liquid Futures Universe
+
+The balance of our analysis will form portfolios from the full universe of liquid futures without reference to sectors. We start with simple methods of portfolio construction and compare against optimized and constrained portfolios. 
+
+It is not clear how one might construct cross-sectionally neutral portfolios once you move on from sector strategies. As a result, our focus narrows to time-series versions.
+
+## [Inverse Volatility Weighted Portfolios](/performance-analysis/carry-on-the-full-liquid-futures-universe/inverse-volatility-weighted-portfolios)
+
+Recall that to form inverse volatility weighted portfolios, at each day we divide the carry signal (raw or transformed) for each market, by the market's current estimated volatility. This ensures each market's weight is proportional to both the strength (and direction) of its carry signal and inversely proportional to its volatility. Markets with larger signals and lower estimated volatilty will earn a larger absolute weighting in the portfolio than markets with smaller signals and higher volatility. We then scale these weights so that the overall portfolio has an expected volatility of 10 percent annualized conditioned on long-term covariance estimates.
+
+## [Optimized Portfolios](/performance-analysis/carry-on-the-full-liquid-futures-universe/optimized-portfolios) 
+
+Let's pause quickly to examine the assumptions that are implied by inverse volatility weighted portfolios. Since weights are exclusively a function of a market's carry signal and volatility, there is no accounting for correlations. Thus, if there are more equities than energies in the portfolio then all things equal the portfolio will be overweight equities. In fact, inverse volatility weighted portfolios are only optimal if there is no useful information in correlations between the markets. This condition is met if correlations are effectively random from day to day, or if all markets always have the same pairwise correlations. Since neither of these conditions typically hold, we would expect portfolios that account for correlations - (thoughtfully) optimized portfolios - to outperform inverse volatility portfolios.
+
+We simulated portfolios formed by passing each market's signal along with an up-to-date estimated covariance matrix into a mean-variance optimizer. As noted above, to mediate known challenges with optimization, we stabilized the covariance matrix using standard methods.
+
+For further intuition into this solution, consider that an unconstrained mean-variance optimizer effectively takes the following steps. First, the covariance matrix is used to change the basis of the problem from asset space into independent "eigenportfolio" space, where each eigenportfolio can be interpreted as a portfolio of assets that represents a statistically independent risk factor. For example, one eigenportfolio may capture equity beta while another eigenportfolio may capture the return spread between energies and metals. Each eigenportfolio is then scaled to the same volatility level and held in proportion to its volatility-scaled carry. In doing so, the process effectively applies time-series carry to the independent risk factors, recognizing that many of those risk factors will capture pertinent cross-sectional information!  
+
+Inverse volatility weighting, then, simply collapses this solution to assume that each market represents an independent risk factor and that cross-sectional effects can be ignored.
+
+## [Constrained Portfolios](/performance-analysis/carry-on-the-full-liquid-futures-universe/constrained-portfolios)
+
+Given a common preference for diversifiers to act as diversifiers to common betas most of the time, we explored ways to structurally neutralize expected exposure to stocks and bonds at portfolio formation. A straightforward but sub-optimal approach would be to explicitly trade equity markets and bond markets cross-sectionally in portfolios. As discussed above, this often leads to situations where markets with strong positive carry are held short. Instead, we can lean on correlation relationships between all the assets in the portfolio to form portfolios that simultaneously seek to maximize total carry at minimal risk, while constraining aggregate expected portfolio beta to equities and Treasuries to zero. Importantly, market betas are updated daily to represent current market relationships using a rolling window of 252 trading days.
+
+The optimization problem can be formulated as follows:
+
+$$
+\begin{split}
+\text{minimize}_{\mathbf{w}} \quad & \mathbf{w}^T \Sigma \mathbf{w}\\  
+\text{subject to:} \quad & \mathbf{w}^T \mathbf{\mu} = 1 \\
+\quad & \mathbf{w}^T \mathbf{\beta}_{\text{S\&P 500}} = 0 \\
+\quad & \mathbf{w}^T \mathbf{\beta}_{\text{10Y Treasury}} = 0.
+\end{split}
+$$
+
+Where $\mathbf{\beta}_{\text{S\&P 500}}$ and $\mathbf{\beta}_{\text{10Y Treasury}}$ are vectors of portfolio betas to the S&P 500 futures and 10-year Treasury futures, respectively. The constraint set therefore constrains the portfolio to be neutral to these benchmarks. The portfolio is otherwise unconstrained.
+
+We neutralize both inverse volatility weighted and mean-variance optimal portfolios. To neutralize inverse volatility weighted portfolios, we employed mean-variance optimization with beta constraints as above, but set off-diagonal covariances to zero.
+
+Note that we need a year (252 trading days) to calculate market betas, so simulations of beta neutralized portfolios start in January 1991 rather than March 1990, which is why the long-term performance numbers in [Figure 15](/performance-analysis/carry-on-the-full-liquid-futures-universe/constrained-portfolios#fig:optim_neutral_table) below do not match those in the table above.
+
+## [Gross Versus Net Returns](/performance-analysis/carry-on-the-full-liquid-futures-universe/gross-versus-net-returns)
+
+So far we've discussed performance gross of expected trading costs so as not to confound the many take-aways from examining the various dimensions of carry across signal types, transforms, sectors, and optimization methods. Of course ultimately the value of Carry strategies is a function of economic returns, net of costs.
+
+In this section we compare gross returns to production-ready ensemble strategies to returns after subtracting estimated trade slippage and commissions. Importantly, trade-netting plays a material role in minimizing trading slippage. By offsetting buy and sell orders for the same assets across various carry strategies, we can significantly reduce transaction costs and market impact. This efficiency not only lowers operational overhead but also enhances portfolio performance by minimizing unnecessary trades.  
+
+Recall also that for all strategies we smooth portfolio weights using a 5-day moving average, which also reduces unnecessary noise trading.
+
+Per [Figure 18](/performance-analysis/carry-on-the-full-liquid-futures-universe/gross-versus-net-returns#fig:gross_net_table) and [Figure 19](/performance-analysis/carry-on-the-full-liquid-futures-universe/gross-versus-net-returns#fig:gross_net_plot), after trade-netting and smoothing, and given our highly liquid investment universe estimated trade frictions reduce returns by about 1 percent per year, which works out to approximately 10 basis points in annualized Sharpe ratio.
+
+For the balance of this paper we'll refer to the Meta Ensemble Treasury Equity Neutral Carry Strategy as simply the Carry Strategy.

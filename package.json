@@ -1,0 +1,62 @@
+{
+  "dependencies": {
+    "@types/node": "^20.12.7",
+    "next": "^14.2.0",
+    "nextra": "^2.13.4",
+    "nextra-theme-docs": "^2.13.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.4.5"
+  },
+  "name": "Whitepaper:-with-lumentis",
+  "description": "Whitepaper: Managed Futures Yield (Carry): A Practitioner's Perspective by ReSolve Asset Management",
+  "version": "0.0.1",
+  "scripts": {
+    "devstart": "next dev -p 5656 & node start.js",
+    "dev": "next dev -p 5656",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "Futures Carry Strategies",
+    "Portfolio Optimization",
+    "Alternative Risk Premia",
+    "Diversification",
+    "Crisis Alpha",
+    "Managed Futures",
+    "Trend Following",
+    "Return Stacking",
+    "Quantitative Finance",
+    "Systematic Investing Futures Yield",
+    "Alternative Strategies",
+    "Return Stacking",
+    "Portable Alpha"
+  ],
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.24.1",
+    "@mdx-js/mdx": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-mdx": "^3.1.5"
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "*.mdx"
+        ],
+        "extends": [
+          "plugin:mdx/recommended"
+        ],
+        "parser": "@babel/eslint-parser",
+        "parserOptions": {
+          "ecmaFeatures": {
+            "jsx": true
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Carry in the Worst Benchmark Quarters
+
+To assess the diversification potential of carry strategies, we analyze their performance conditional on the worst quarterly returns for the S&P 500 Total Return Index and the Bloomberg Aggregate Total Return Index. <a href="#fig:es_quintiles">Figure 1</a> and <a href="#fig:ty_quintiles">Figure 2</a> show the annualized **excess** returns of the final optimized [Carry Strategy](/performance-analysis/carry-on-the-full-liquid-futures-universe/gross-versus-net-returns), a [trend following strategy](/performance-analysis/stacking-case-studies), and futures representing the underlying asset class itself (S&P 500 futures and 10-Year Treasury Note futures, respectively) sorted into quintiles based on quarterly asset class performance.
+
+The results demonstrate that both carry and trend returns are largely independent of the performance of either equities or bonds, and each other. Average carry returns are consistently positive across all quintiles, with little variation based on the magnitude of benchmark losses. This suggests that carry can provide meaningful diversification and positive returns even in the most challenging market environments <a href="#ref-koijen2018carry">(Koijen et al. 2018)</a> <a href="#ref-moskowitz2012time">(Moskowitz, Ooi, and Pedersen 2012)</a> <a href="#ref-baltas2017optimising">(Baltas 2017)</a>.
+
+<figure id="fig:es_quintiles">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/es_quintiles.png" alt="Annualized Excess Returns of Carry (Net), Trend Replication (Net), and S&P 500 Futures Conditioned on S&P 500 Total Return Quintile" />
+<figcaption>Figure 1: Annualized Excess Returns of Carry (Net), Trend Replication (Net), and S&P 500 Futures Conditioned on S&P 500 Total Return Quintile.<br />
+<em>Data from CSI Data, Standard & Poors. Authors' calculations. S&P 500 futures are GROSS of roll costs. Carry and Trend performance is HYPOTHETICAL and NET of estimated trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<figure id="fig:ty_quintiles">
+<img src="https://investresolve.com/wp-content/uploads/carry/images/ty_quintiles.png" alt="Annualized Excess Returns of Carry (Net), Trend Replication (Net), and U.S. 10Y Treasury Futures Conditioned on Bloomberg Agg Total Return Quintile" />
+<figcaption>Figure 2: Annualized Excess Returns of Carry (Net), Trend Replication (Net), and U.S. 10Y Treasury Futures Conditioned on Bloomberg Agg Total Return Quintile.<br />
+<em>Data from CSI Data, Bloomberg. Authors' calculations. U.S. 10Y Treasury futures are GROSS of roll costs. Carry and Trend performance is HYPOTHETICAL and NET of estimated trading slippage and commissions. Past performance is not indicative of future results. See also disclaimers at the end of the document for more information.</em></figcaption>
+</figure>
+
+<Callout type="success">
+The analysis reveals that futures carry strategies have the potential to deliver positive returns and diversification benefits during the worst periods for traditional asset classes like stocks and bonds. This "crisis alpha" characteristic can make carry an appealing component of a diversified portfolio.
+</Callout>
+
+To further evaluate carry's performance in adverse market conditions, we examine the strategy's returns during major drawdowns for equities and fixed income in the next section on [Carry During Benchmark Drawdowns](/performance-analysis/scenario-analysis/carry-during-benchmark-drawdowns).
